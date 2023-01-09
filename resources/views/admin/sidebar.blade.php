@@ -71,7 +71,7 @@
           <span class="menu-icon">
             <i class="mdi mdi-file-document-box"></i>
           </span>
-          <span class="menu-title">Appointments</span>
+          <span class="menu-title">Appointment</span>
         </a>
       </li>
 
