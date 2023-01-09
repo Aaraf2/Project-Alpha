@@ -1,207 +1,264 @@
-<nav x-data="{ open: false }" class="">
-    <!-- Primary Navigation Menu -->
-    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
 
+    <!DOCTYPE html>
+    <html lang="en">
 
-                <!-- Navigation Links -->
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-            </div>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
-                <!-- Teams Dropdown -->
-                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                    <div class="relative ml-3">
-                        <x-jet-dropdown align="right" width="60">
-                            <x-slot name="trigger">
-                                <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition bg-white border border-transparent rounded-md hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50">
-                                        {{ Auth::user()->currentTeam->name }}
+        <meta name="copyright" content="MACode ID, https://macodeid.com/">
 
-                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                        </svg>
-                                    </button>
-                                </span>
-                            </x-slot>
+        <title>E-Garage</title>
 
-                            <x-slot name="content">
-                                <div class="w-60">
-                                    <!-- Team Management -->
-                                    <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('Manage Team') }}
-                                    </div>
+        <link rel="stylesheet" href="../assets/css/maicons.css">
 
-                                    <!-- Team Settings -->
-                                    <x-jet-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
-                                        {{ __('Team Settings') }}
-                                    </x-jet-dropdown-link>
+        <link rel="stylesheet" href="../assets/css/bootstrap.css">
 
-                                    @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                                        <x-jet-dropdown-link href="{{ route('teams.create') }}">
-                                            {{ __('Create New Team') }}
-                                        </x-jet-dropdown-link>
-                                    @endcan
+        <link rel="stylesheet" href="../assets/vendor/owl-carousel/css/owl.carousel.css">
 
-                                    <div class="border-t border-gray-100"></div>
+        <link rel="stylesheet" href="../assets/vendor/animate/animate.css">
 
-                                    <!-- Team Switcher -->
-                                    <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('Switch Teams') }}
-                                    </div>
+        <link rel="stylesheet" href="../assets/css/theme.css">
+    </head>
 
-                                    @foreach (Auth::user()->allTeams() as $team)
-                                        <x-jet-switchable-team :team="$team" />
-                                    @endforeach
-                                </div>
-                            </x-slot>
-                        </x-jet-dropdown>
-                    </div>
-                @endif
+    <body>
 
-                <!-- Settings Dropdown -->
-                <div class="relative ml-3">
-                    <x-jet-dropdown align="right" width="48">
-                        <x-slot name="trigger">
-                            @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                                <button class="flex text-sm transition border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300">
-                                    <img class="object-cover w-8 h-8 rounded-full" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
-                                </button>
-                            @else
-                                <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition bg-white border border-transparent rounded-md hover:text-gray-700 focus:outline-none">
-                                        {{ Auth::user()->name }}
+        <!-- Back to top button -->
+        <div class="back-to-top"></div>
 
-                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                        </svg>
-                                    </button>
-                                </span>
-                            @endif
-                        </x-slot>
-
-                        <x-slot name="content">
-                            <!-- Account Management -->
-                            <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Account') }}
+        <header>
+            <div class="topbar">
+                <div class="container">
+                    <div class="row">
+                        <div class="text-sm col-sm-8">
+                            <div class="site-info">
+                                <a href="#"><span class="mai-call text-primary"></span> +00 123 4455 6666</a>
+                                <span class="divider">|</span>
+                                <a href="#"><span class="mai-mail text-primary"></span> mail@example.com</a>
                             </div>
-
-                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('Profile') }}
-                            </x-jet-dropdown-link>
-
-                            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
-                                    {{ __('API Tokens') }}
-                                </x-jet-dropdown-link>
-                            @endif
-
-                            <div class="border-t border-gray-100"></div>
-
-                            <!-- Authentication -->
-                            <form method="POST" action="{{ route('logout') }}" x-data>
-                                @csrf
-
-                                <x-jet-dropdown-link href="{{ route('logout') }}"
-                                         @click.prevent="$root.submit();">
-                                    {{ __('Log Out') }}
-                                </x-jet-dropdown-link>
-                            </form>
-                        </x-slot>
-                    </x-jet-dropdown>
+                        </div>
+                        <div class="text-sm text-right col-sm-4">
+                            <div class="social-mini-button">
+                                <a href="#"><span class="mai-logo-facebook-f"></span></a>
+                                <a href="#"><span class="mai-logo-twitter"></span></a>
+                                <a href="#"><span class="mai-logo-dribbble"></span></a>
+                                <a href="#"><span class="mai-logo-instagram"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- .row -->
                 </div>
+                <!-- .container -->
             </div>
+            <!-- .topbar -->
 
-            <!-- Hamburger -->
-            <div class="flex items-center -mr-2 sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 text-gray-400 transition rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500">
-                    <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+            <nav class="shadow-sm navbar navbar-expand-lg navbar-light">
+                <div class="container">
+                    <a class="navbar-brand" href="#"><span class="text-primary">E</span>-Garage</a>
+
+                    <form action="#">
+                        <div class="input-group input-navbar">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="icon-addon1"><span class="mai-search"></span></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Enter keyword.." aria-label="Username" aria-describedby="icon-addon1">
+                        </div>
+                    </form>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupport" aria-controls="navbarSupport" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupport">
+                        <ul class="ml-auto navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="index.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="about.html">About Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="doctors.html">Technicians</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="blog.html">News</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact.html">Contact</a>
+                            </li>
+
+                            @if(Route::has('login'))
+
+                            @auth
+
+
+
+                            <li class="nav-item">
+                                <a class="nav-link" style="background-color: mediumseagreen ; color:white;" href="{{url('myappointment')}}">My Appointment</a>
+                            </li>
+
+                            <x-app-layout>
+
+                            </x-app-layout>
+
+                           @else
+
+                            <li class="nav-item">
+                                <a class="btn btn-primary ml-lg-3" href="{{route('login')}}">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-primary ml-lg-3" href="{{route('register')}}">Register</a>
+                            </li>
+
+                             @endauth
+                             @endif
+
+                        </ul>
+                    </div>
+                    <!-- .navbar-collapse -->
+                </div>
+                <!-- .container -->
+            </nav>
+        </header>
+
+        @if(session()->has('message'))
+               <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">x
                 </button>
-            </div>
-        </div>
-    </div>
+                {{session()->get('message')}}
+               </div>
+           @endif
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-jet-responsive-nav-link>
-        </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="flex items-center px-4">
-                @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                    <div class="mr-3 shrink-0">
-                        <img class="object-cover w-10 h-10 rounded-full" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
-                    </div>
-                @endif
-
-                <div>
-                    <div class="text-base font-medium text-gray-800">{{ Auth::user()->name }}</div>
-                    <div class="text-sm font-medium text-gray-500">{{ Auth::user()->email }}</div>
+        <div class="page-hero bg-image overlay-dark" style="background-image: url(../assets/img/damir-kopezhanov-w-bRrLmXODg-unsplash.jpg);">
+            <div class="hero-section">
+                <div class="container text-center wow zoomIn">
+                    <span class="subhead">IF WE CAN'T FIX IT</span>
+                    <h1 class="display-4">IT AIN'T BROKE</h1>
+                    <a href="#" class="btn btn-primary">Consult Technician</a>
                 </div>
             </div>
-
-            <div class="mt-3 space-y-1">
-                <!-- Account Management -->
-                <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                    {{ __('Profile') }}
-                </x-jet-responsive-nav-link>
-
-                @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                    <x-jet-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
-                        {{ __('API Tokens') }}
-                    </x-jet-responsive-nav-link>
-                @endif
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}" x-data>
-                    @csrf
-
-                    <x-jet-responsive-nav-link href="{{ route('logout') }}"
-                                   @click.prevent="$root.submit();">
-                        {{ __('Log Out') }}
-                    </x-jet-responsive-nav-link>
-                </form>
-
-                <!-- Team Management -->
-                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                    <div class="border-t border-gray-200"></div>
-
-                    <div class="block px-4 py-2 text-xs text-gray-400">
-                        {{ __('Manage Team') }}
-                    </div>
-
-                    <!-- Team Settings -->
-                    <x-jet-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" :active="request()->routeIs('teams.show')">
-                        {{ __('Team Settings') }}
-                    </x-jet-responsive-nav-link>
-
-                    @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                        <x-jet-responsive-nav-link href="{{ route('teams.create') }}" :active="request()->routeIs('teams.create')">
-                            {{ __('Create New Team') }}
-                        </x-jet-responsive-nav-link>
-                    @endcan
-
-                    <div class="border-t border-gray-200"></div>
-
-                    <!-- Team Switcher -->
-                    <div class="block px-4 py-2 text-xs text-gray-400">
-                        {{ __('Switch Teams') }}
-                    </div>
-
-                    @foreach (Auth::user()->allTeams() as $team)
-                        <x-jet-switchable-team :team="$team" component="jet-responsive-nav-link" />
-                    @endforeach
-                @endif
-            </div>
         </div>
-    </div>
-</nav>
+
+
+        <div class="bg-light">
+            <div class="py-3 page-section mt-md-n5 custom-index">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="py-3 col-md-4 py-md-0">
+                            <div class="card-service wow fadeInUp">
+                                <div class="text-white circle-shape bg-secondary">
+                                    <span class="mai-chatbubbles-outline"></span>
+                                </div>
+                                <p><span>Chat</span> with a Technician</p>
+                            </div>
+                        </div>
+                        <div class="py-3 col-md-4 py-md-0">
+                            <div class="card-service wow fadeInUp">
+                                <div class="text-white circle-shape bg-primary">
+                                    <span class="mai-shield-checkmark"></span>
+                                </div>
+                                <p><span>E</span>-Garage Protection</p>
+                            </div>
+                        </div>
+                        <div class="py-3 col-md-4 py-md-0">
+                            <div class="card-service wow fadeInUp">
+                                <div class="text-white circle-shape bg-accent">
+                                    <span class="mai-basket"></span>
+                                </div>
+                                <p><span>E</span>-Garage Store</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- .page-section -->
+
+            <div class="pb-0 page-section">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="py-3 col-lg-6 wow fadeInUp">
+                            <h1>Welcome to Car Health <br> Center</h1>
+                            <p class="mb-4 text-grey">Welcome to E-Garage, a one stop solution for all your car maintenance. E-garage is the online platform for EVERDRIVE which is an automotive workshop specialized in all sorts of car maintenance, Car repair, Paint job, Engine repair,
+                                Engine modification and so on. We also provide the best auto parts, tools, and maintenance services in the market. We have been working with pride for the last 20 years and never compromised in providing our clients with the
+                                best product. Our motto is to ensure our clients’ uttermost satisfaction and ensure happy driving. </p>
+                            <a href="about.html" class="btn btn-primary">Learn More</a>
+                        </div>
+                        <div class="col-lg-6 wow fadeInRight" data-wow-delay="400ms">
+                            <div class="img-place custom-img-1">
+                                <img src="../assets/img/handsome-auto-mechanic-white-background_495423-17018.jpeg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- .bg-light -->
+        </div>
+        <!-- .bg-light -->
+
+       @include('user.Technicians')
+        <!-- .page-section -->
+
+        @include('user.appointment')
+
+        <!-- .banner-home -->
+
+        <footer class="page-footer">
+            <div class="container">
+                <div class="row px-md-3">
+                    <div class="py-3 col-sm-6 col-lg-3">
+                        <h5>Company</h5>
+                        <ul class="footer-menu">
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Career</a></li>
+                            <li><a href="#">Editorial Team</a></li>
+                            <li><a href="#">Protection</a></li>
+                        </ul>
+                    </div>
+                    <div class="py-3 col-sm-6 col-lg-3">
+                        <h5>More</h5>
+                        <ul class="footer-menu">
+                            <li><a href="#">Terms & Condition</a></li>
+                            <li><a href="#">Privacy</a></li>
+                            <li><a href="#">Advertise</a></li>
+                            <li><a href="#">Join as Technician</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="py-3 col-sm-6 col-lg-3">
+                        <h5>Contact</h5>
+                        <p class="mt-2 footer-link">Jalan Rotan #81310,Johor Bahru,Johor,Malaysia</p>
+                        <a href="#" class="footer-link">702-563-7692</a>
+                        <a href="#" class="footer-link">garage007@temporary.net</a>
+
+                        <h5 class="mt-3">Social Media</h5>
+                        <div class="mt-3 footer-sosmed">
+                            <a href="#" target="_blank"><span class="mai-logo-facebook-f"></span></a>
+                            <a href="#" target="_blank"><span class="mai-logo-twitter"></span></a>
+                            <a href="#" target="_blank"><span class="mai-logo-google-plus-g"></span></a>
+                            <a href="#" target="_blank"><span class="mai-logo-instagram"></span></a>
+                            <a href="#" target="_blank"><span class="mai-logo-linkedin"></span></a>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <p id="copyright">Copyright &copy; 2022 E-Garage </p>
+            </div>
+        </footer>
+
+        <script src="../assets/js/jquery-3.5.1.min.js"></script>
+
+        <script src="../assets/js/bootstrap.bundle.min.js"></script>
+
+        <script src="../assets/vendor/owl-carousel/js/owl.carousel.min.js"></script>
+
+        <script src="../assets/vendor/wow/wow.min.js"></script>
+
+        <script src="../assets/js/theme.js"></script>
+
+    </body>
+
+    </html>
